@@ -24,8 +24,6 @@ import de.gandev.modjn.entity.func.response.WriteMultipleCoilsResponse;
 import de.gandev.modjn.entity.func.response.WriteMultipleRegistersResponse;
 import de.gandev.modjn.handler.ModbusRequestHandler;
 import de.gandev.modjn.handler.ModbusResponseHandler;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.BitSet;
 import javax.swing.JOptionPane;
@@ -132,7 +130,7 @@ public class ExampleUI extends javax.swing.JFrame {
 
         modbusClient = new ModbusClient(host, Integer.valueOf(port)); //ModbusConstants.MODBUS_DEFAULT_PORT);
 
-        modbusClient.addPropertyChangeListener(new PropertyChangeListener() {
+        /*modbusClient.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -151,7 +149,7 @@ public class ExampleUI extends javax.swing.JFrame {
                     }
                 }
             }
-        });
+        });*/
 
         try {
             modbusClient.setup(handler);
@@ -448,7 +446,7 @@ public class ExampleUI extends javax.swing.JFrame {
 
         modbusServer = new ModbusServer(Integer.valueOf(port));
 
-        modbusServer.addPropertyChangeListener(new PropertyChangeListener() {
+        /*modbusServer.addPropertyChangeListener(new PropertyChangeListener() {
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -467,7 +465,7 @@ public class ExampleUI extends javax.swing.JFrame {
                     }
                 }
             }
-        });
+        });*/
 
         try {
             modbusServer.setup(new ModbusRequestHandler() {

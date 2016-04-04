@@ -32,8 +32,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.GenericFutureListener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+
 import java.util.BitSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +45,6 @@ public class ModbusClient {
     }
 
     public static final String PROP_CONNECTIONSTATE = "connectionState";
-    private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
     //
     private final String host;
     private final int port;
@@ -138,16 +136,9 @@ public class ModbusClient {
     public void setConnectionState(CONNECTION_STATES connectionState) {
         CONNECTION_STATES oldConnectionState = this.connectionState;
         this.connectionState = connectionState;
-        propertyChangeSupport.firePropertyChange(PROP_CONNECTIONSTATE, oldConnectionState, connectionState);
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-    }
+  
 
     public int callModbusFunction(ModbusFunction function)
             throws ConnectionException {
