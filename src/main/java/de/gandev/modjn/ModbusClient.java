@@ -74,10 +74,8 @@ public class ModbusClient {
         setup(null);
     }
 
-    public void setup(ModbusResponseHandler handler) throws ConnectionException {
+    public void setup(ModbusResponseHandler handler, final EventLoopGroup workerGroup) throws ConnectionException {
         try {
-            final EventLoopGroup workerGroup = new NioEventLoopGroup();
-
             bootstrap = new Bootstrap();
             bootstrap.group(workerGroup);
             bootstrap.channel(NioSocketChannel.class);
@@ -96,7 +94,7 @@ public class ModbusClient {
 
                 @Override
                 public void operationComplete(ChannelFuture future) throws Exception {
-                    workerGroup.shutdownGracefully();
+                    //workerGroup.shutdownGracefully();
 
                     setConnectionState(CONNECTION_STATES.notConnected);
                 }
@@ -108,6 +106,11 @@ public class ModbusClient {
             throw new ConnectionException(ex.getLocalizedMessage());
         }
 
+    }
+    
+    public void setup(ModbusResponseHandler handler) throws ConnectionException {
+    	final EventLoopGroup workerGroup = new NioEventLoopGroup();
+        setup(handler, workerGroup);
     }
 
     public Channel getChannel() {
